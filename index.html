@@ -713,8 +713,8 @@ footer .disclaimer {
     <div class="cta-card">
       <h3>Markus Rufer</h3>
       <div class="cta-detail"><span class="icon">📍</span> Brünigstrasse 33, CH-3860 Meiringen</div>
-      <div class="cta-detail"><span class="icon">📞</span> 078 943 38 60</div>
-      <div class="cta-detail"><span class="icon">✉️</span> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="563b78242330332416313b2e78383322">[email&#160;protected]</a></div>
+      <div class="cta-detail"><span class="icon">📞</span> <a href="tel:+41789433860" style="color:var(--royal-dark);text-decoration:none;">078 943 38 60</a></div>
+      <div class="cta-detail"><span class="icon">✉️</span> <a href="mailto:m.rufer@gmx.net" style="color:var(--royal);text-decoration:underline;">m.rufer@gmx.net</a></div>
       <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--divider);font-size:0.85rem;color:var(--text-light)">
         Bioenergetische Frequenzarbeit · Spooky2 Remote & Plasma<br>
         Individuelle Frequenzprogramme · Persönliche Betreuung
@@ -725,11 +725,27 @@ footer .disclaimer {
 
 <!-- Footer -->
 <footer>
-  <strong>Bioenergetische Frequenzarbeit</strong> · Markus Rufer · Meiringen<br>
-  
+  <strong>Bioenergetische Frequenzarbeit</strong> · Markus Rufer · Meiringen
 
   <div class="disclaimer">
     Bioenergetische Frequenzarbeit ersetzt keine professionelle Beratung oder Versorgung.
     Die Anwendung erfolgt eigenverantwortlich. Frequenzanwendungen dienen der energetischen Unterstützung
-    und Selbstregulation. Bei anhaltenden oder schwerwiegenden Anliegen wenden Sie sich bitte an eine qualifizierte Fachperson.
-    Spooky2 ist ein experimen
+    und Selbstregulation.
+  </div>
+</footer>
+
+<script>
+// Reveal on scroll
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+    }
+  });
+}, { threshold: 0.15 });
+reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
