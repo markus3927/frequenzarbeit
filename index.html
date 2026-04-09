@@ -167,6 +167,40 @@ body {
   .th-titel { font-size: 15px; }
 }
 
+
+/* ─── Kontakt-Buttons ─── */
+.cta-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 1.5rem;
+  flex-wrap: wrap;
+}
+.cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 14px 24px;
+  border-radius: 6px;
+  font-family: 'DejaVu', sans-serif;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: transform 0.2s, box-shadow 0.2s;
+  cursor: pointer;
+}
+.cta-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+.cta-btn-wa {
+  background: #25D366;
+  color: white;
+}
+.cta-btn-sms {
+  background: var(--royal);
+  color: white;
+}
+
 /* ─── SECTIONS ─────────────────────────────────────── */
 .section {
   padding: 6rem 2rem;
@@ -738,6 +772,11 @@ footer .disclaimer {
       <div class="cta-detail"><span class="icon">📍</span> Brünigstrasse 33, CH-3860 Meiringen</div>
       <div class="cta-detail"><span class="icon">📞</span> <a href="tel:+41789433860" style="color:var(--royal-dark);text-decoration:none;">078 943 38 60</a></div>
       <div class="cta-detail"><span class="icon">✉️</span> <a href="/cdn-cgi/l/email-protection#a3ce8dd1d6c5c6d1e3c4cedb8dcdc6d7" style="color:var(--royal);text-decoration:underline;"><span class="__cf_email__" data-cfemail="fa97d4888f9c9f88ba9d9782d4949f8e">[email&#160;protected]</span></a></div>
+      
+      <div class="cta-buttons">
+        <a href="https://wa.me/41789433860?text=Hallo%20Markus.%20Ich%20habe%20Interesse%20an%20der%20Frequenzarbeit.%20Bitte%20kontaktiere%20mich." class="cta-btn cta-btn-wa">💬 WhatsApp schreiben</a>
+        <a href="sms:+41789433860?body=Hallo%20Markus.%20Ich%20habe%20Interesse%20an%20der%20Frequenzarbeit.%20Bitte%20kontaktiere%20mich." class="cta-btn cta-btn-sms">📱 SMS senden</a>
+      </div>
       <div style="margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--divider);font-size:0.85rem;color:var(--text-light)">
         Bioenergetische Frequenzarbeit · Spooky2 Remote & Plasma<br>
         Individuelle Frequenzprogramme · Persönliche Betreuung
