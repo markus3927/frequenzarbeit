@@ -641,9 +641,9 @@ footer {
   </div>
   <p class="bereiche-hint">Tippen Sie auf die Bereiche, die Sie interessieren — und kontaktieren Sie mich direkt mit Ihrer Auswahl.</p>
   <div class="btn-row" id="bereiche-buttons" style="display:none;">
-    <a href="#" onclick="sendBereiche('wa');return false;" class="btn-wa">&#x1F4AC; Auswahl per WhatsApp senden</a>
-    <a href="#" onclick="sendBereiche('sms');return false;" class="btn-sms">&#x1F4F1; Auswahl per SMS senden</a>
-    <a href="tel:+41789433860" onclick="window.location.href='tel:+41789433860';return false;" class="btn-phone">📞 Anrufen</a>
+    <a id="b-wa" href="#" class="btn-wa" target="_blank" rel="noopener noreferrer">&#x1F4AC; Auswahl per WhatsApp senden</a>
+    <a id="b-sms" href="#" class="btn-sms">&#x1F4F1; Auswahl per SMS senden</a>
+    <a href="tel:+41789433860" class="btn-phone">📞 Anrufen</a>
   </div>
 </div>
 
@@ -780,13 +780,13 @@ footer {
     </div>
     <div class="kontakt-detail">
       <div class="k-icon">📞</div>
-      <div><a href="tel:+41789433860" onclick="window.location.href='tel:+41789433860';return false;" style="color:var(--royal);font-weight:700;text-decoration:none;font-size:18px;letter-spacing:0.5px;">078 943 38 60</a></div>
+      <div><a href="tel:+41789433860" style="color:var(--royal);font-weight:700;text-decoration:none;font-size:18px;letter-spacing:0.5px;">078 943 38 60</a></div>
     </div>
 
     <div class="btn-row">
-      <a href="tel:+41789433860" onclick="window.location.href='tel:+41789433860';return false;" class="btn-phone">📞 Anrufen</a>
+      <a href="tel:+41789433860" class="btn-phone">📞 Anrufen</a>
       <a href="https://wa.me/41789433860?text=Hallo%20Markus.%20Ich%20habe%20Interesse%20an%20der%20Frequenzarbeit.%20Bitte%20kontaktiere%20mich." class="btn-wa" target="_blank" rel="noopener noreferrer">&#x1F4AC; WhatsApp</a>
-      <a href="sms:+41789433860" onclick="var u=navigator.userAgent;var b='Hallo Markus. Ich habe Interesse an der Frequenzarbeit. Bitte kontaktiere mich.';if(/iPhone|iPad|iPod/i.test(u)){window.location.href='sms:+41789433860&body='+encodeURIComponent(b);}else{window.location.href='sms:+41789433860?body='+encodeURIComponent(b);}return false;" class="btn-sms">&#x1F4F1; SMS</a>
+      <a id="kontakt-sms" href="#" class="btn-sms">&#x1F4F1; SMS</a>
     </div>
   </div>
 </div>
@@ -806,26 +806,28 @@ function showTab(name, el) {
 }
 function toggleBereich(el) {
   el.classList.toggle('selected');
-  var sel = document.querySelectorAll('.bereich-card.selected');
-  var btns = document.getElementById('bereiche-buttons');
-  btns.style.display = sel.length > 0 ? 'flex' : 'none';
-}
-function sendBereiche(typ) {
   var sel = document.querySelectorAll('.bereich-card.selected .b-name');
+  var btns = document.getElementById('bereiche-buttons');
+  if (sel.length === 0) {
+    btns.style.display = 'none';
+    return;
+  }
+  btns.style.display = 'flex';
   var bereiche = [];
   for (var i = 0; i < sel.length; i++) { bereiche.push(sel[i].textContent); }
   var txt = 'Hallo Markus. Ich interessiere mich für: ' + bereiche.join(', ') + '. Bitte kontaktiere mich.';
-  if (typ === 'wa') {
-    window.open('https://wa.me/41789433860?text=' + encodeURIComponent(txt), '_blank');
-  } else {
-    var u = navigator.userAgent;
-    if (/iPhone|iPad|iPod/i.test(u)) {
-      window.location.href = 'sms:+41789433860&body=' + encodeURIComponent(txt);
-    } else {
-      window.location.href = 'sms:+41789433860?body=' + encodeURIComponent(txt);
-    }
-  }
+  var enc = encodeURIComponent(txt);
+  document.getElementById('b-wa').href = 'https://wa.me/41789433860?text=' + enc;
+  var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  document.getElementById('b-sms').href = isIOS ? ('sms:+41789433860&body=' + enc) : ('sms:+41789433860?body=' + enc);
 }
+(function() {
+  var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  var sep = isIOS ? '&' : '?';
+  var msg = encodeURIComponent('Hallo Markus. Ich habe Interesse an der Frequenzarbeit. Bitte kontaktiere mich.');
+  var smsEl = document.getElementById('kontakt-sms');
+  if (smsEl) { smsEl.href = 'sms:+41789433860' + sep + 'body=' + msg; }
+})();
 </script>
 </body>
 </html>
