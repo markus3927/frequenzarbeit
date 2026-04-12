@@ -639,7 +639,12 @@ footer {
       <div class="b-check">✓ Vorgemerkt</div>
     </div>
   </div>
-  <p class="bereiche-hint">Tippen Sie auf einen Bereich, der Sie interessiert — und kontaktieren Sie mich für ein unverbindliches Gespräch.</p>
+  <p class="bereiche-hint">Tippen Sie auf die Bereiche, die Sie interessieren — und kontaktieren Sie mich direkt mit Ihrer Auswahl.</p>
+  <div class="btn-row" id="bereiche-buttons" style="display:none;">
+    <a href="#" onclick="sendBereiche('wa');return false;" class="btn-wa">&#x1F4AC; Auswahl per WhatsApp senden</a>
+    <a href="#" onclick="sendBereiche('sms');return false;" class="btn-sms">&#x1F4F1; Auswahl per SMS senden</a>
+    <a href="tel:+41789433860" onclick="window.location.href='tel:+41789433860';return false;" class="btn-phone">📞 Anrufen</a>
+  </div>
 </div>
 
 <!-- PAGE: PIONIERE -->
@@ -801,6 +806,25 @@ function showTab(name, el) {
 }
 function toggleBereich(el) {
   el.classList.toggle('selected');
+  var sel = document.querySelectorAll('.bereich-card.selected');
+  var btns = document.getElementById('bereiche-buttons');
+  btns.style.display = sel.length > 0 ? 'flex' : 'none';
+}
+function sendBereiche(typ) {
+  var sel = document.querySelectorAll('.bereich-card.selected .b-name');
+  var bereiche = [];
+  for (var i = 0; i < sel.length; i++) { bereiche.push(sel[i].textContent); }
+  var txt = 'Hallo Markus. Ich interessiere mich für: ' + bereiche.join(', ') + '. Bitte kontaktiere mich.';
+  if (typ === 'wa') {
+    window.open('https://wa.me/41789433860?text=' + encodeURIComponent(txt), '_blank');
+  } else {
+    var u = navigator.userAgent;
+    if (/iPhone|iPad|iPod/i.test(u)) {
+      window.location.href = 'sms:+41789433860&body=' + encodeURIComponent(txt);
+    } else {
+      window.location.href = 'sms:+41789433860?body=' + encodeURIComponent(txt);
+    }
+  }
 }
 </script>
 </body>
