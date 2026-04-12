@@ -785,7 +785,7 @@ footer {
 
     <div class="btn-row">
       <a href="tel:+41789433860" class="btn-phone">📞 Anrufen</a>
-      <a href="https://wa.me/41789433860?text=Hallo%20Markus.%20Ich%20habe%20Interesse%20an%20der%20Frequenzarbeit.%20Bitte%20kontaktiere%20mich." class="btn-wa" target="_blank" rel="noopener noreferrer">&#x1F4AC; WhatsApp</a>
+      <a id="kontakt-wa" href="https://wa.me/41789433860?text=Hallo%20Markus.%20Ich%20habe%20Interesse%20an%20der%20Frequenzarbeit.%20Bitte%20kontaktiere%20mich." class="btn-wa" target="_blank" rel="noopener noreferrer">&#x1F4AC; WhatsApp</a>
       <a id="kontakt-sms" href="#" class="btn-sms">&#x1F4F1; SMS</a>
     </div>
   </div>
@@ -804,30 +804,38 @@ function showTab(name, el) {
   el.classList.add('active');
   window.scrollTo(0, 0);
 }
-function toggleBereich(el) {
-  el.classList.toggle('selected');
+function buildMsg() {
   var sel = document.querySelectorAll('.bereich-card.selected .b-name');
-  var btns = document.getElementById('bereiche-buttons');
-  if (sel.length === 0) {
-    btns.style.display = 'none';
-    return;
-  }
-  btns.style.display = 'flex';
+  if (sel.length === 0) return null;
   var bereiche = [];
   for (var i = 0; i < sel.length; i++) { bereiche.push(sel[i].textContent); }
-  var txt = 'Hallo Markus. Ich interessiere mich für: ' + bereiche.join(', ') + '. Bitte kontaktiere mich.';
-  var enc = encodeURIComponent(txt);
-  document.getElementById('b-wa').href = 'https://wa.me/41789433860?text=' + enc;
-  var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  document.getElementById('b-sms').href = isIOS ? ('sms:+41789433860&body=' + enc) : ('sms:+41789433860?body=' + enc);
+  return 'Hallo Markus. Ich interessiere mich für: ' + bereiche.join(', ') + '. Bitte kontaktiere mich.';
 }
-(function() {
+function updateLinks() {
+  var msg = buildMsg();
+  var standard = 'Hallo Markus. Ich habe Interesse an der Frequenzarbeit. Bitte kontaktiere mich.';
+  var txt = msg || standard;
+  var enc = encodeURIComponent(txt);
   var isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  var sep = isIOS ? '&' : '?';
-  var msg = encodeURIComponent('Hallo Markus. Ich habe Interesse an der Frequenzarbeit. Bitte kontaktiere mich.');
-  var smsEl = document.getElementById('kontakt-sms');
-  if (smsEl) { smsEl.href = 'sms:+41789433860' + sep + 'body=' + msg; }
-})();
+  var smsLink = isIOS ? ('sms:+41789433860&body=' + enc) : ('sms:+41789433860?body=' + enc);
+  var waLink = 'https://wa.me/41789433860?text=' + enc;
+  var bwa = document.getElementById('b-wa');
+  var bsms = document.getElementById('b-sms');
+  var kwa = document.getElementById('kontakt-wa');
+  var ksms = document.getElementById('kontakt-sms');
+  if (bwa) bwa.href = waLink;
+  if (bsms) bsms.href = smsLink;
+  if (kwa) kwa.href = waLink;
+  if (ksms) ksms.href = smsLink;
+}
+function toggleBereich(el) {
+  el.classList.toggle('selected');
+  var sel = document.querySelectorAll('.bereich-card.selected');
+  var btns = document.getElementById('bereiche-buttons');
+  btns.style.display = sel.length > 0 ? 'flex' : 'none';
+  updateLinks();
+}
+(function() { updateLinks(); })();
 </script>
 </body>
 </html>
