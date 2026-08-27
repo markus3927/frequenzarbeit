@@ -3,7 +3,7 @@
    Network-first: zeigt immer die aktuelle Version, Cache nur als Offline-Reserve.
    Bei jedem App-Update die Versionsnummer unten erhöhen (v1 -> v2 ...),
    damit alte zwischengespeicherte Dateien sauber ersetzt werden. */
-const CACHE = 'frequenzarbeit-v2';
+const CACHE = 'frequenzarbeit-v3';
 const CORE = [
   '/', '/index.html', '/manifest.webmanifest',
   '/icon-192.png', '/icon-512.png', '/icon-maskable-512.png', '/apple-touch-icon.png'
